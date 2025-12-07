@@ -1,6 +1,6 @@
 start
-var x ~ 5 :
-{ 
-  set x ~ 3 :
+var X ~ 5 :
+{
+  set X ~ 3 :
 }
 trats
