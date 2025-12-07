@@ -2,7 +2,6 @@
 #include "printTree.h"
 #include "token.h"
 
-// Map NodeType to simple labels (no angle brackets)
 static const char* nodeLabel(NodeType t) {
     switch (t) {
         case NodeType::PROGRAM: return "program";
@@ -26,35 +25,42 @@ static const char* nodeLabel(NodeType t) {
     return "unknown";
 }
 
-// Print one token as group:instance:line (if it’s actually set)
-static void printTok(const Token& tk) {
-    if (tk.id == TokenID::ERR_tk) return;        // our "unused" sentinel
-    std::cout << " "
-              << tokenName[static_cast<int>(tk.id)] << ":"
-              << tk.instance << ":"
-              << tk.line;
+// Convert TokenID to professor-required short label
+static const char* shortGroup(TokenID id) {
+    switch (id) {
+        case TokenID::IDENT_tk: return "ID";
+        case TokenID::NUM_tk:   return "INT";
+        case TokenID::KW_tk:    return "KW";
+        case TokenID::OP_tk:    return "OP";
+        case TokenID::EOFTk:    return "EOF";
+        default:                return nullptr;
+    }
+}
+
+// Prints token like: ID:id_1:4
+static void emit(const Token& tk) {
+    const char* g = shortGroup(tk.id);
+    if (!g) return;
+    std::cout << " " << g << ":" << tk.instance << ":" << tk.line;
 }
 
 void printTree(Node* n, int depth) {
     if (!n) return;
 
-    // indentation
     for (int i = 0; i < depth; ++i)
         std::cout << "  ";
 
-    // node label
     std::cout << nodeLabel(n->label);
 
-    // any tokens associated with this node
-    printTok(n->tk1);
-    printTok(n->tk2);
-    printTok(n->tk3);
+    emit(n->tk1);
+    emit(n->tk2);
+    emit(n->tk3);
 
     std::cout << "\n";
 
-    // preorder traversal
     printTree(n->child1, depth + 1);
     printTree(n->child2, depth + 1);
     printTree(n->child3, depth + 1);
     printTree(n->child4, depth + 1);
 }
+
