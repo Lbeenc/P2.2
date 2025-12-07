@@ -1,0 +1,6 @@
+start
+var x ~ 5 :
+{ 
+  set x ~ 3 :
+}
+trats
