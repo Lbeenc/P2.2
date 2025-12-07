@@ -1,6 +1,6 @@
-start
-var X ~ 5 :
+START
+VAR X ~ 5 :
 {
-  set X ~ 3 :
+    SET X ~ 3 :
 }
-# missing trats on purpose, or some other syntax error
+TRATS
