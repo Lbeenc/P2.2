@@ -1,6 +1,7 @@
-START
-VAR X ~ 5 :
+start
+var id_x ~ 5 :
 {
-    SET X ~ 3 :
+    set id_x ~ 3 :
 }
-TRATS
+trats
+EOF
